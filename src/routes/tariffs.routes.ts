@@ -1,8 +1,8 @@
-import { createTarrifs } from '@/controller/tariffs.controller';
+import { createTarrifs, getTarrifs } from '@/controller/tariffs.controller';
 import { Router } from 'express';
 
 const router = Router();
 
-router.route('/').post(createTarrifs);
+router.route('/').get(getTarrifs).post(createTarrifs);
 
 export default router;
