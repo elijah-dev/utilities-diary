@@ -5,7 +5,7 @@ import { ErrorResponse } from '@/utils/error-response.util';
 export const getTarrifs = rejectionHandler(async (req, res) => {
     const tariffs = await Tariffs.find().limit(1);
 
-    res.status(200).json(tariffs);
+    return res.status(200).json(tariffs);
 });
 
 export const createTarrifs = rejectionHandler(async (req, res) => {
@@ -18,5 +18,5 @@ export const createTarrifs = rejectionHandler(async (req, res) => {
     }
 
     const entry = await Tariffs.create(req.body);
-    res.status(201).json(entry);
+    return res.status(201).json(entry);
 });
