@@ -9,6 +9,28 @@ export const getEntries = rejectionHandler(async (req, res) => {
     return res.status(200).json(entries);
 });
 
+export const createInitialEntry = rejectionHandler(async (req, res) => {
+    const entries = await Entry.find();
+
+    if (entries.length > 0) {
+        throw new ErrorResponse(403, 'Entries have been already initialize');
+    }
+
+    await EntryData.validate(req.body);
+
+    const { cold, hot, electricity } = req.body;
+
+    const entryData = {
+        cold: new EntryField({ value: cold }),
+        hot: new EntryField({ value: hot }),
+        electricity: new EntryField({ value: electricity }),
+    };
+
+    const newEntry = await Entry.create(entryData);
+
+    return res.status(201).json(newEntry);
+});
+
 export const createEntry = rejectionHandler(async (req, res) => {
     await EntryData.validate(req.body);
 

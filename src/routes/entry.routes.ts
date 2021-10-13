@@ -5,10 +5,13 @@ import {
     deleteEntryById,
     getEntryById,
     getLastEntry,
+    createInitialEntry,
 } from '@/controller/entry.controller';
 import { Router } from 'express';
 
 const router = Router();
+
+router.route('/init').post(createInitialEntry);
 
 router.route('/create').post(createEntry);
 

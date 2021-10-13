@@ -5,18 +5,20 @@ import { initializeApp } from './app';
 
 dotenv.config();
 
-const { PORT, MONGO_URL } = process.env;
+const { PORT, MONGO_URL, MONGO_URL_DEV, NODE_ENV } = process.env;
 
-if (MONGO_URL === undefined || PORT === undefined) {
+const mongoUrl = NODE_ENV === 'development' ? MONGO_URL_DEV : MONGO_URL;
+
+if (mongoUrl === undefined || PORT === undefined) {
     throw new Error('Error loading environment variables');
 }
 
 mongoose
-    .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log(colors.magenta('Connected to MongoDB'));
+        console.log(colors.magenta(`Connected to ${NODE_ENV} database`));
         initializeApp(PORT);
     })
     .catch(() => {
-        throw new Error('Could not connect to MongoDB');
+        throw new Error('Could not connect to database');
     });
