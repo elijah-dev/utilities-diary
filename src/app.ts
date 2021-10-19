@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import colors from 'colors';
 import apiRouter from '@/routes/api.routes';
 import cors from 'cors';
+import path from 'path';
 import { errorHandler } from '@/middleware/error-handler.middleware';
 
 export function initializeApp(port: string): void {
@@ -13,7 +14,7 @@ export function initializeApp(port: string): void {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
-    app.use(express.static('dist'));
+    app.use(express.static(path.join(__dirname, '../dist')));
 
     app.use('/api', apiRouter);
 

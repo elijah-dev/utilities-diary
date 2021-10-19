@@ -1,0 +1,9 @@
+@use "@/common/styles/colors";
+
+.button {
+    padding: 2em 4em;
+    background-color: colors.$secondary;
+    color: white;
+    border: none;
+    box-shadow: none;
+}

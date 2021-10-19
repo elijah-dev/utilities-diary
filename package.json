@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
+    "prod": "npm run build && npm run start",
     "build": "rimraf build && tsc",
     "postbuild": "ef-tspm",
     "start": "cross-env NODE_ENV=production node build",
